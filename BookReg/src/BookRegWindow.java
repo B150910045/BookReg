@@ -126,19 +126,36 @@ public class BookRegWindow {
 		btn_save.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					int nRow = model.getRowCount();
-				    for (int i = 0 ; i < nRow ; i++) {
-				    	int j = 0;
+					book.truncate();
+					
+			    	int j = 0;
+					int rows = model.getRowCount();
+				    for (int i = rows - 1 ; i >= 0 ; i--) {
 				    	String author = (String)model.getValueAt(i,j + 1);
 				    	String bookName = (String)model.getValueAt(i,j + 2);
 				    	int price = (int)model.getValueAt(i,j + 3);
-				    	book.update(author, bookName, price, i);
+				    	
+				    	System.out.println(author+" - "+bookName+" - "+price);
+				    	
+				    	book.insert(author, bookName, price);
 				    }
 				}catch(Exception e1) {e1.printStackTrace();}
 			}
 		});
 		btn_save.setBounds(380, 70, 100, 40);
 		frame.getContentPane().add(btn_save);
+		
+		JButton btn_del = new JButton("del");
+		btn_del.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					if(table.getSelectedRow() != -1)
+						model.removeRow(table.getSelectedRow());
+				}catch(Exception e1) {e1.printStackTrace();}
+			}
+		});
+		btn_del.setBounds(380, 220, 100, 40);
+		frame.getContentPane().add(btn_del);
 
 		JButton btn_conn = new JButton("connect");
 		btn_conn.addActionListener(new ActionListener() {

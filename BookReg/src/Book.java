@@ -21,9 +21,15 @@ public class Book {
 	}
 	
 	public void update(String author, String bookName, int price, int id) {
+    	//System.out.println(author+" - "+bookName+" - "+price);
 		String query = "UPDATE books\r\n"
 				+ "SET author = '"+author+"', bookName= '"+bookName+"', price = "+price+"\r\n"
 				+ "WHERE id = "+id+";";
+		mysql.execute(query);
+	}
+	
+	public void truncate() {
+		String query = "TRUNCATE books";
 		mysql.execute(query);
 	}
 	
